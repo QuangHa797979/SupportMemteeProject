@@ -1,8 +1,4 @@
--- create database
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-SET GLOBAL sql_mode = 'NO_ENGINE_SUBSTITUTION';
-SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION';
+
 DROP DATABASE IF EXISTS demomockproject;
 CREATE DATABASE demomockproject;
 USE demomockproject;
@@ -26,8 +22,8 @@ CREATE TABLE Requestsupport	(
     create_date				DATETIME NOT NULL,
 	start_time				DATETIME DEFAULT NOW() NOT NULL,
     end_time				DATETIME NOT NULL,
-	supervisor_tutor_name	VARCHAR(50) NOT NULL,
-	supervisor_mentor_name	VARCHAR(50) NOT NULL,
+	supervisor_name	VARCHAR(50) NOT NULL,
+-- 	supervisor_mentor_name	VARCHAR(50) NOT NULL,
     `status`					ENUM("send","pending","approve","refuse")
 );
 
