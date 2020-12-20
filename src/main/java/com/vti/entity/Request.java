@@ -84,7 +84,7 @@ public class Request implements Serializable {
 	public void setType(Type type) {
 		this.type = type;
 	}
-
+// hàm khởi tạo, khai báo type
 	public enum Type {
 		RETEST("retest"), RESERVE("reserve"), SUPPORT("support");
 
@@ -122,10 +122,5 @@ public class Request implements Serializable {
 		this.mentee = mentee;
 		this.type = type;
 	}
-
-
-	
-	
-	
 }
 

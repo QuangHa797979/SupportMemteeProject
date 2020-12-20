@@ -44,6 +44,18 @@ CREATE TABLE Request	(
 	FOREIGN KEY(request_support_id) REFERENCES Requestsupport (request_support_id)
 );
 
+CREATE TABLE Request_relearn	(
+	request_id		SMALLINT UNSIGNED PRIMARY KEY,
+    lesson_id		SMALLINT UNSIGNED,
+    subject_id		SMALLINT UNSIGNED,
+    start_date		DATETIME NOT NULL,
+    end_date		DATETIME NOT NULL,
+    `status`		ENUM("SEND","PENDING","APPROVE","REFUSE") NOT NULL,
+	FOREIGN KEY(request_id) REFERENCES Request (request_id),
+	FOREIGN KEY(lesson_id) REFERENCES Lesson (lesson_id),
+    FOREIGN KEY(subject_id) REFERENCES `Subject` (subject_id)
+);
+
 
 -- Add data Mentee
 INSERT INTO Mentee (user_name,			email,							`password`,   phone_number)
@@ -82,6 +94,13 @@ VALUES 						('retest'	,'abc'		,	'abcde'	,	1	,		1		),
 							('support'	,'abc'		,	'abcde'	,	8	,		8			),
 							('reserve'	,'abc'		,	'abcde'	,	9	,		9		),
 							('retest'	,'abc'		,	'abcde'	,	10	,		10			);
-select * from Mentee;                    
-select * from  Requestsupport; 
-select * from  Request; 
+                            -- Add data request_relearn
+INSERT INTO Request_relearn 	(request_id,	lesson_id,	subject_id,		start_date,				end_date,				status)
+value							(	1,				1,			1,			"2020/10/15 19-00-00",	"2020/11/15 22-00-00",	"SEND"),
+								(	2,				2,			1,			"2020/10/15 19-00-00",	"2020/11/15 22-00-00",	"PENDING"),
+                                (	3,				3,			2,			"2020/10/15 19-00-00",	"2020/11/15 22-00-00",	"APPROVE"),
+                                (	4,				4,			3,			"2020/10/15 19-00-00",	"2020/11/15 22-00-00",	"APPROVE");
+
+-- select * from Mentee;                    
+-- select * from  Requestsupport; 
+-- select * from  Request; 
