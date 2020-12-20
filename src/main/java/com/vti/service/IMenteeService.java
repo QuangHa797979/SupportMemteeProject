@@ -15,7 +15,9 @@ public interface IMenteeService {
 
 	public Mentee getMenteeByUserName(String userName);
 
-	public void createMentee(Mentee Mentee);
+	public boolean createMentee(Mentee Mentee);
+	
+//	public void createMentee(Mentee Mentee);
 
 	public void updateMentee(short id, UpdatingMenteeForm form);
 

@@ -24,7 +24,6 @@ public class MenteeService implements IMenteeService {
 
 	@Override
 	public Mentee getMenteeByID(short id) {
-
 		return repository.findById(id).get();
 	}
 
@@ -34,8 +33,14 @@ public class MenteeService implements IMenteeService {
 	}
 
 	@Override
-	public void createMentee(Mentee Mentee) {
-		repository.save(Mentee);
+	public  boolean createMentee(Mentee Mentee) {
+//		repository.save(Mentee);
+		Mentee m = repository.findByUserName(Mentee.getUserName());
+		if (m != null) {
+			return false;
+		} else {
+			return repository.existsByUserName(Mentee);
+		}
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.vti.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.vti.dto.CreatingMenteeForm;
 import com.vti.dto.MenteeDTO;
 import com.vti.dto.UpdatingMenteeForm;
@@ -23,6 +25,8 @@ import com.vti.entity.Mentee;
 import com.vti.entity.Request;
 import com.vti.entity.Request.Type;
 import com.vti.service.IMenteeService;
+import com.vti.service.MenteeService;
+import com.vti.utils.ScannerUtilMentee;
 
 @RestController
 @RequestMapping(value = "api/v1/mentees")
@@ -69,13 +73,43 @@ public class MenteeController {
 	public ResponseEntity<?> getMenteeByID(@PathVariable(name = "id") short id) {
 		return new ResponseEntity<Mentee>(menteeService.getMenteeByID(id), HttpStatus.OK);
 	}
+	
+//	@PostMapping()
+//	public ResponseEntity<?> createMentee(@RequestBody CreatingMenteeForm form) {
+//		Mentee entity = form.toEntity();
+//		menteeService.createMentee(entity);
+//		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
+//	}
 
 	@PostMapping()
-	public ResponseEntity<?> createMentee(@RequestBody CreatingMenteeForm form) {
+	public ResponseEntity<Boolean> createMentee(@RequestBody CreatingMenteeForm form) {
+		
+//		Scanner scanner = new Scanner(System.in);
+//		System.out.println("UserName: ");
+//		String username = ScannerUtilMentee.readUsername(scanner, "error");
+//		System.out.println("Password: ");
+//		String password = ScannerUtilMentee.readPassword(scanner, "error");
+//		boolean bl = new MenteeService().login(username, password);
+//		if(bl){
+//			System.out.println("Login succesed!");
+//		} else {
+//			System.out.println("Login failed!");
+//		}
+
+		Scanner scanner = new Scanner(System.in);
+//		System.out.println("UserName: ");
+		String username = ScannerUtilMentee.readUsername(scanner, "error");
+//		System.out.println("Password: ");
+		String password = ScannerUtilMentee.readPassword(scanner, "error");
 		Mentee entity = form.toEntity();
 		menteeService.createMentee(entity);
-		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
+		boolean bl = new MenteeService().login(username, password);
+		if(bl){
+		return new ResponseEntity<Boolean>(HttpStatus.CREATED);
+		} else {
+		return new ResponseEntity<Boolean>(HttpStatus.FORBIDDEN);
 	}
+}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> updateMentee(@PathVariable(name = "id") short id, @RequestBody UpdatingMenteeForm form) {
@@ -89,3 +123,6 @@ public class MenteeController {
 		return new ResponseEntity<String>("Delete successfully!", HttpStatus.OK);
 	}
 }
+
+
+

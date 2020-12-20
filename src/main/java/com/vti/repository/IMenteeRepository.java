@@ -8,8 +8,10 @@ import com.vti.dto.MenteeDTO;
 public interface IMenteeRepository extends JpaRepository<Mentee, Short> {
 
 	public Mentee findByUserName(String userName);
-
+	
 	public boolean existsByUserName(String userName);
+
+	public boolean existsByUserName(Mentee mentee);
 
 	public boolean existsByUserNameAndPassword(String userName, String password);
 

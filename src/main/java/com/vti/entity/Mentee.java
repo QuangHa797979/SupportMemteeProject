@@ -2,6 +2,7 @@ package com.vti.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.vti.utils.ScannerUtilMentee;
 
 @Entity
 @Table(name = "`Mentee`", catalog = "demomockproject")
@@ -103,6 +105,19 @@ public class Mentee implements Serializable {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
+	
+	public void input() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("UserName (only put in 6 - 50 alphabets, at least one capital letter):");
+		userName = ScannerUtilMentee.readUsername(sc, "Please input data as a String! \nPlease input again: ");
+		System.out.println("Password: ");
+		password=ScannerUtilMentee.readPassword(sc, "Please input data as a String! \nPlease input again: ");
+		System.out.println("Phone (only put in 9 to 15 numbers):");
+		phoneNumber=ScannerUtilMentee.readPhone(sc, "Please input data as a String! \nPlease input again: ");
+		System.out.println("Email (only put in 6 - 50 alphabets, at least one capital letter):");
+		email=ScannerUtilMentee.readEmail(sc, "Please input data as a String! \nPlease input again: ");
+	}
+}
 
 //	@Override
 //	public String toString() {
@@ -112,7 +127,7 @@ public class Mentee implements Serializable {
 //		return "Mentee [menteeID=" + menteeID + ", userName=" + userName + ", password=" + password + ", phoneNumber="
 //				+ phoneNumber + ", email=" + email + "]";
 //	}
-}
+
 
 //	@Override
 //	public String toString() {
