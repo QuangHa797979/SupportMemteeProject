@@ -40,6 +40,7 @@ CREATE TABLE Requestsupport	(
 	start_time				DATETIME DEFAULT NOW() NOT NULL,
     end_time				DATETIME NOT NULL,
 	supervisor_name			VARCHAR(50) NOT NULL,
+    note					VARCHAR(500),
     `status`				ENUM("send","pending","approve","refuse"),
      FOREIGN KEY(request_support_id) REFERENCES Request(request_id)
 );
