@@ -21,7 +21,6 @@ import com.vti.dto.MenteeDTO;
 import com.vti.dto.UpdatingMenteeForm;
 import com.vti.entity.Mentee;
 import com.vti.entity.Request;
-import com.vti.entity.Request.Type;
 import com.vti.service.IMenteeService;
 
 @RestController
@@ -48,13 +47,6 @@ public class MenteeController {
 				requestTitles.add(request.getNote());
 				requestTitles.add(request.getType().getKind());
 			}
-//			List<Integer> requestTitles2 = new ArrayList<>();
-//				
-//				
-//			requestTitles.add(request.getMentee().getMenteeID());
-//		}
-//				requestTitles.add(request.getRequestID(), request.getTitle());
-//			}
 
 			// convert 1 entity => 1 dto
 			dto = new MenteeDTO(mentee.getUserName(), mentee.getPhoneNumber(), mentee.getEmail(), requestTitles);
