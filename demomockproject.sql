@@ -38,11 +38,10 @@ CREATE TABLE Requestsupport	(
 	start_time				DATETIME DEFAULT NOW() NOT NULL,
     end_time				DATETIME NOT NULL,
 	supervisor_name			VARCHAR(50) NOT NULL,
+    note					VARCHAR(500),
     `status`				ENUM("send","pending","approve","refuse"),
      FOREIGN KEY(request_support_id) REFERENCES Request(request_id)
 );
-
-
 
 -- Add data Mentee
 INSERT INTO Mentee (user_name,			email,							`password`,   phone_number)
@@ -58,7 +57,7 @@ VALUES			('hanh.havan@vti',		'hanhhanoi1999@gmail.com',		'123456',	'123456888888
 				('quanganhvti',			'quanganh@gmail.com', 			'123456',	'123456888888')		;
                 
                 -- Add data Request       
-INSERT INTO Request	(  		`type`		,		note	, 	title, 	mentee_id)
+INSERT INTO Request			(`type`		,		note	, 	title, 	mentee_id)
 VALUES 						('retest'	,'abc'		,	'abcde'	,	1	),
 							('reserve'	,'abc'		,	'abcde'	,	2	),
 							('support'	,'abc'		,	'abcde'	,	3	),
