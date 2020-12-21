@@ -43,7 +43,6 @@ CREATE TABLE Requestsupport	(
     `status`				ENUM("send","pending","approve","refuse"),
      FOREIGN KEY(request_support_id) REFERENCES Request(request_id)
 );
-	-- Hiên thêm mới database Subject, Lesson, Request_relearn
     -- create table Subject
 CREATE TABLE `Subject`	(
 	subject_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -61,7 +60,6 @@ CREATE TABLE Lesson	(
 	CREATE TABLE Request_relearn	(
 	request_id		SMALLINT UNSIGNED PRIMARY KEY,
     lesson_id		SMALLINT UNSIGNED,
--- Hiên thêm default (now)
     start_date		DATETIME DEFAULT(now()),
     end_date		DATETIME DEFAULT(now()),
     `status`		ENUM("SEND","PENDING","APPROVE","REFUSE") NOT NULL,
@@ -110,7 +108,6 @@ VALUES 						(		3			,	'SQL'			,		1				,'2019-03-05',   '2019-03-05','2019-03-05'
 -- 							(					,	'ACCOUNT'		,		9				,'2020-04-09',   '2020-04-09','2020-04-09','Cuong'	, 'approve'),
 -- 							(					,	'BANKING'		,		10				,'2020-04-10',   '2020-04-10','2020-04-10','Duc'		, 'send');
 
--- Hiên insert bảng  Subject, Lesson, Request_relearn
 -- Add data Subject
 INSERT INTO subject 	(subject_name)
 value					("Java"),

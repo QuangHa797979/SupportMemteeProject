@@ -88,7 +88,6 @@ public class Request implements Serializable {
 // hàm khởi tạo, khai báo type
 	public enum Type {
 		// RETEST("retest"), RESERVE("reserve"), SUPPORT("support");
-		// Hien them
 		RETEST("retest"), RESERVE("reserve"), SUPPORT("support"), RELEARN("relearn");
 
 		private String kind;
@@ -111,7 +110,6 @@ public class Request implements Serializable {
 
 			case "support":
 				return Type.SUPPORT;
-			// Hien them
 			case "relearn":
 				return Type.RELEARN;
 			default:
