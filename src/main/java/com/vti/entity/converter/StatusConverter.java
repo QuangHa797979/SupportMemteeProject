@@ -17,7 +17,4 @@ import com.vti.entity.Requestsupport.Status;
 		public Status convertToEntityAttribute(String dbData) {
 			return Status.fromSignal(dbData);
 		}
-
-
-
 }
