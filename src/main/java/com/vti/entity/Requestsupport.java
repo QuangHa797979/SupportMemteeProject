@@ -8,11 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.vti.dto.ViewSupportHistory;
 import com.vti.entity.converter.StatusConverter;
-import com.vti.entity.converter.TypeConverter;
-import com.vti.entity.Request;
-import com.vti.entity.Request.Type;
-import com.vti.entity.Mentee;
 
 @Entity
 @Table(name = "Requestsupport", catalog = "demomockproject")
@@ -173,6 +170,13 @@ public class Requestsupport extends Request implements Serializable {
 		setMentee(mentee);
 	}
 
+	@Override
+	public String toString() {
+		return "Requestsupport [subjectName=" + subjectName + ", lessonName=" + lessonName + ", startime=" + startime
+				+ ", endtime=" + endtime + ", supervisorName=" + supervisorName + ", createDate=" + createDate
+				+ ", status=" + status + "]";
+	}
+
 //
 //	public Requestsupport(String subjectName, String lessonName, String startime, String endtime, String supervisorName,
 //			String createDate, Status status) {
@@ -200,5 +204,9 @@ public class Requestsupport extends Request implements Serializable {
 //		this.mentee = mentee;
 //		this.type = type;
 //	}
-
+	
+public  ViewSupportHistory toDto() {
+	return new ViewSupportHistory(startime, endtime, supervisorName, getType(), getNote());
+}
+	
 }

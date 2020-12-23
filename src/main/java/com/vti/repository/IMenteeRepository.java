@@ -3,7 +3,6 @@ package com.vti.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.vti.entity.Mentee;
-import com.vti.dto.MenteeDTO;
 
 public interface IMenteeRepository extends JpaRepository<Mentee, Short> {
 

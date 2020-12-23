@@ -86,8 +86,10 @@ public class Request implements Serializable {
 		this.type = type;
 	}
 
+// hàm khởi tạo, khai báo type
 	public enum Type {
-		RETEST("retest"), RESERVE("reserve"), SUPPORT("support");
+		// RETEST("retest"), RESERVE("reserve"), SUPPORT("support");
+		RETEST("retest"), RESERVE("reserve"), SUPPORT("support"), RELEARN("relearn");
 
 		private String kind;
 
@@ -109,12 +111,13 @@ public class Request implements Serializable {
 
 			case "support":
 				return Type.SUPPORT;
-		default:
-            throw new IllegalArgumentException("Kind [" + kind
-                    + "] not supported.");
+			case "relearn":
+				return Type.RELEARN;
+			default:
+				throw new IllegalArgumentException("Kind [" + kind + "] not supported.");
+			}
 		}
 	}
-}
 
 	public Request(String note, String title, Mentee mentee, Type type) {
 		super();
@@ -123,10 +126,4 @@ public class Request implements Serializable {
 		this.mentee = mentee;
 		this.type = type;
 	}
-
-
-	
-	
-	
 }
-
