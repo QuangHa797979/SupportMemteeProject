@@ -1,8 +1,4 @@
--- create database
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-SET GLOBAL sql_mode = 'NO_ENGINE_SUBSTITUTION';
-SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION';
+
 DROP DATABASE IF EXISTS demomockproject;
 CREATE DATABASE demomockproject;
 USE demomockproject;
@@ -128,3 +124,63 @@ value							(	7,				1,		"2020/10/15 19-00-00",	"2020/11/15 22-00-00",	"SEND"),
 select * from  Mentee;                    
 select * from  Requestsupport; 
 select * from  Request; 
+
+    -- create table Subject
+CREATE TABLE `Subject`	(
+	subject_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    subject_name	VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- create table Lesson
+CREATE TABLE Lesson	(
+	lesson_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    lesson_name		VARCHAR(50) NOT NULL UNIQUE,
+    subject_id		SMALLINT UNSIGNED,
+	FOREIGN KEY(subject_id) REFERENCES Subject (subject_id)
+);
+
+-- create table Request_retest
+DROP TABLE IF EXISTS Request_retest;
+CREATE TABLE Request_retest	(
+	request_id		SMALLINT UNSIGNED PRIMARY KEY,
+    subject_id		SMALLINT UNSIGNED,
+--     type_retest		ENUM("MULTIPLE_CHOICE","ESSAY","INTERVIEW") NOT NULL,
+    `time`			DATETIME NOT NULL,
+    `point`			SMALLINT UNSIGNED,
+    `status`		ENUM("SEND","EXAM_SCHEDULED","FINISH","REFUSE"),
+	FOREIGN KEY(request_id) REFERENCES Request (request_id),
+    FOREIGN KEY(subject_id) REFERENCES `Subject` (subject_id)
+);
+
+-- Add data Subject
+INSERT INTO `subject` 	(subject_name)
+value					("Java"),
+						("MySQL"),
+                        ("Angular");
+                        
+-- Add data Lesson
+INSERT INTO Lesson 	(lesson_name,		subject_id)
+value					("Java-core",			1),
+						("Java-advance",		1),
+						("MySQL căn bản",		2),
+                        ("Angular-Byding data",	3);
+                            
+-- Add data Request_retest
+INSERT INTO Request_retest		(request_id,	subject_id,				`time`,			`point`	,		`status`)		
+values							('1',			'2',					'2020-12-12',	'0',			'REFUSE'),      
+								('10',			'3',					'2020-12-13',	'7',			'FINISH');      -- type_retest,		
+-- 'MULTIPLE_CHOICE',	
+-- 'INTERVIEW',		
+
+--                                 ('7',			'2',			'ESSAY',					'2020-12-13',	'8',			`SEND`	),
+--                                 ('8',			'2',			'MULTIPLE_CHOICE',			'2020-12-14',	'0',			`SEND`	),
+--                                 ('10',			'1',			'ESSAY',					'2020-12-14',	'0',			`SEND`	),
+--                                 ('12',			'2',			'ESSAY',					'2020-12-15',	'5',			`SEND`	),
+--                                 ('13',			'1',			'MULTIPLE_CHOICE',			'2020-12-15',	'0',			`SEND`	),
+--                                 ('16',			'2',			'INTERVIEW',				'2020-12-15',	'5',			`SEND`	),
+--                                 ('18',			'3',			'MULTIPLE_CHOICE',			'2020-12-15',	'0',			`SEND`	),
+--                                 ('19',			'2',			'INTERVIEW',				'2020-12-16',	'0',			`SEND`	),
+
+SELECT * FROM `subject`;
+SELECT * FROM `Lesson`;
+SELECT * FROM `Request_retest`;
