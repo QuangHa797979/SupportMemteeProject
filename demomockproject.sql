@@ -33,15 +33,9 @@ CREATE TABLE Requestsupport	(
     create_date				DATETIME NOT NULL,
 	start_time				DATETIME DEFAULT NOW() NOT NULL,
     end_time				DATETIME NOT NULL,
-<<<<<<< HEAD
-	supervisor_name	VARCHAR(50) NOT NULL,
--- 	supervisor_mentor_name	VARCHAR(50) NOT NULL,
-    `status`					ENUM("send","pending","approve","refuse")
-=======
 	supervisor_name			VARCHAR(50) NOT NULL,
     `status`				ENUM("send","pending","approve","refuse"),
      FOREIGN KEY(request_support_id) REFERENCES Request(request_id)
->>>>>>> dev
 );
 
 
@@ -61,16 +55,16 @@ VALUES			('hanh.havan@vti',		'hanhhanoi1999@gmail.com',		'123456',	'123456888888
                 
                 -- Add data Request       
 INSERT INTO Request	(  		`type`		,		note	, 	title, 	mentee_id)
-VALUES 						('retest'	,'abc'		,	'abcde'	,	1	),
-							('reserve'	,'abc'		,	'abcde'	,	2	),
-							('support'	,'abc'		,	'abcde'	,	3	),
-							('reserve'	,'abc'		,	'abcde'	,	4	),
-							('reserve'	,'abc'		,	'abcde'	,	5	),
-							('support'	,'abc'		,	'abcde'	,	6	),
-							('reserve'	,'abc'		,	'abcde'	,	7	),
-							('support'	,'abc'		,	'abcde'	,	8	),
-							('reserve'	,'abc'		,	'abcde'	,	9	),
-							('retest'	,'abc'		,	'abcde'	,	10	);
+VALUES 						('retest'	,'retest'		,	'retest'	,	1	),
+							('reserve'	,'reserve'		,	'reserve'	,	2	),
+							('support'	,'support'		,	'support'	,	3	),
+							('reserve'	,'reserve'		,	'reserve'	,	4	),
+							('reserve'	,'reserve'		,	'reserve'	,	5	),
+							('support'	,'support'		,	'support'	,	6	),
+							('reserve'	,'reserve'		,	'reserve'	,	7	),
+							('support'	,'support'		,	'support'	,	8	),
+							('reserve'	,'reserve'		,	'reserve'	,	9	),
+							('retest'	,'retest'		,	'retest'	,	10	);
                             
 -- Add data Requestsupport        
 INSERT INTO Requestsupport	(request_support_id,  subject_name	,		lesson_name		, create_date, start_time, end_time, supervisor_name, `status`)
@@ -90,4 +84,62 @@ select * from  Mentee;
 select * from  Requestsupport; 
 select * from  Request; 
 
+    -- create table Subject
+CREATE TABLE `Subject`	(
+	subject_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    subject_name	VARCHAR(50) NOT NULL UNIQUE
+);
 
+-- create table Lesson
+CREATE TABLE Lesson	(
+	lesson_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    lesson_name		VARCHAR(50) NOT NULL UNIQUE,
+    subject_id		SMALLINT UNSIGNED,
+	FOREIGN KEY(subject_id) REFERENCES Subject (subject_id)
+);
+
+-- create table Request_retest
+DROP TABLE IF EXISTS Request_retest;
+CREATE TABLE Request_retest	(
+	request_id		SMALLINT UNSIGNED PRIMARY KEY,
+    subject_id		SMALLINT UNSIGNED,
+--     type_retest		ENUM("MULTIPLE_CHOICE","ESSAY","INTERVIEW") NOT NULL,
+    `time`			DATETIME NOT NULL,
+    `point`			SMALLINT UNSIGNED,
+    `status`		ENUM("SEND","EXAM_SCHEDULED","FINISH","REFUSE"),
+	FOREIGN KEY(request_id) REFERENCES Request (request_id),
+    FOREIGN KEY(subject_id) REFERENCES `Subject` (subject_id)
+);
+
+-- Add data Subject
+INSERT INTO `subject` 	(subject_name)
+value					("Java"),
+						("MySQL"),
+                        ("Angular");
+                        
+-- Add data Lesson
+INSERT INTO Lesson 	(lesson_name,		subject_id)
+value					("Java-core",			1),
+						("Java-advance",		1),
+						("MySQL căn bản",		2),
+                        ("Angular-Byding data",	3);
+                            
+-- Add data Request_retest
+INSERT INTO Request_retest		(request_id,	subject_id,				`time`,			`point`	,		`status`)		
+values							('1',			'2',					'2020-12-12',	'0',			'REFUSE'),      
+								('10',			'3',					'2020-12-13',	'7',			'FINISH');      -- type_retest,		
+-- 'MULTIPLE_CHOICE',	
+-- 'INTERVIEW',		
+
+--                                 ('7',			'2',			'ESSAY',					'2020-12-13',	'8',			`SEND`	),
+--                                 ('8',			'2',			'MULTIPLE_CHOICE',			'2020-12-14',	'0',			`SEND`	),
+--                                 ('10',			'1',			'ESSAY',					'2020-12-14',	'0',			`SEND`	),
+--                                 ('12',			'2',			'ESSAY',					'2020-12-15',	'5',			`SEND`	),
+--                                 ('13',			'1',			'MULTIPLE_CHOICE',			'2020-12-15',	'0',			`SEND`	),
+--                                 ('16',			'2',			'INTERVIEW',				'2020-12-15',	'5',			`SEND`	),
+--                                 ('18',			'3',			'MULTIPLE_CHOICE',			'2020-12-15',	'0',			`SEND`	),
+--                                 ('19',			'2',			'INTERVIEW',				'2020-12-16',	'0',			`SEND`	),
+
+SELECT * FROM `subject`;
+SELECT * FROM `Lesson`;
+SELECT * FROM `Request_retest`;
