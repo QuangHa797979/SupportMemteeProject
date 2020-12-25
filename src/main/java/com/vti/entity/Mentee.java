@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.vti.utils.ScannerUtilMentee;
 
+
 @Entity
 @Table(name = "`Mentee`", catalog = "demomockproject")
 public class Mentee implements Serializable {
@@ -24,7 +25,7 @@ public class Mentee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private short menteeID;
 
-	@Column(name = "`user_name`", length = 50, nullable = false, unique = true, updatable = false)
+	@Column(name = "`user_name`", length = 50, nullable = false, unique = true)
 	private String userName;
 
 	@Column(name = "`password`", length = 800, nullable = false)
@@ -105,19 +106,36 @@ public class Mentee implements Serializable {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
-	
-	public void input() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("UserName (only put in 6 - 50 alphabets, at least one capital letter):");
-		userName = ScannerUtilMentee.readUsername(sc, "Please input data as a String! \nPlease input again: ");
-		System.out.println("Password: ");
-		password=ScannerUtilMentee.readPassword(sc, "Please input data as a String! \nPlease input again: ");
-		System.out.println("Phone (only put in 9 to 15 numbers):");
-		phoneNumber=ScannerUtilMentee.readPhone(sc, "Please input data as a String! \nPlease input again: ");
-		System.out.println("Email (only put in 6 - 50 alphabets, at least one capital letter):");
-		email=ScannerUtilMentee.readEmail(sc, "Please input data as a String! \nPlease input again: ");
-	}
 }
+
+
+	
+
+//	public void input() {
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("UserName (only put in 6 - 50 alphabets, at least one capital letter):");
+//		userName = ScannerUtilMentee.readUsername(sc, "Please input data as a String! \nPlease input again: ");
+//		System.out.println("Password: ");
+//		password=ScannerUtilMentee.readPassword(sc, "Please input data as a String! \nPlease input again: ");
+//		System.out.println("Phone (only put in 9 to 15 numbers):");
+//		phoneNumber=ScannerUtilMentee.readPhone(sc, "Please input data as a String! \nPlease input again: ");
+//		System.out.println("Email (only put in 6 - 50 alphabets, at least one capital letter):");
+//		email=ScannerUtilMentee.readEmail(sc, "Please input data as a String! \nPlease input again: ");
+//}
+//}
+//}
+//	public void input() {
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("Password (only put in 6 - 50 alphabets, at least one capital letter):");
+//		userName = ScannerUtilMentee.readString(sc, "Please input data as a String! \nPlease input again: ");
+//		System.out.println("Password (only put in 6 - 50 alphabets, at least one capital letter):");
+//		password=ScannerUtilMentee.readPassword(sc, "Please input data as a String! \nPlease input again: ");
+//		System.out.println("Phone (only put in 9 to 12 numbers):");
+//		phoneNumber = ScannerUtilMentee.readPhone(sc, "Please input data as a String! \nPlease input again: ");
+//		System.out.println("Email:");
+//		email=ScannerUtilMentee.readEmail(sc, "Please input data as a String! \nPlease input again: ");
+//		
+//	}
 
 //	@Override
 //	public String toString() {

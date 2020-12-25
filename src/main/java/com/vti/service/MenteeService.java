@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
 import com.vti.dto.UpdatingMenteeForm;
 import com.vti.entity.Mentee;
 import com.vti.repository.IMenteeRepository;
@@ -32,16 +33,31 @@ public class MenteeService implements IMenteeService {
 		return repository.findByUserName(userName);
 	}
 
+//	@Override
+//	public  boolean createMentee(Mentee Mentee) {
+////		repository.save(Mentee);
+//		Mentee m = repository.findByUserName(Mentee.getUserName());
+//		if (m != null) {
+//			return false;
+//		} else {
+//			return repository.existsByUserName(Mentee);
+//		}
+//	}
+//	
 	@Override
-	public  boolean createMentee(Mentee Mentee) {
-//		repository.save(Mentee);
-		Mentee m = repository.findByUserName(Mentee.getUserName());
-		if (m != null) {
-			return false;
-		} else {
-			return repository.existsByUserName(Mentee);
-		}
+	public void createMentee(Mentee Mentee) {
+		repository.save(Mentee);
 	}
+	
+//	@Override
+//	public boolean createMentee(Mentee Mentee) {
+//		Mentee u = repository.findByUserName(Mentee.getUserName());
+//		if (u != null) {
+//			return false;
+//		} else {
+//			return repository.existsByUserName(Mentee);
+//		}
+//	}
 
 	@Override
 	public void updateMentee(short id, UpdatingMenteeForm form) {
@@ -90,5 +106,15 @@ public class MenteeService implements IMenteeService {
 	public Mentee getMenteeAndLogin(String userName, String password) {
 		return repository.findByUserNameAndPassword(userName, password);
 	}
+	
+	public Mentee getMenteeByEmail(String email) {
+		return repository.getMenteeByEmail(email);
+	}
+	
+	@Override
+	public boolean isMenteeExistsByEmail(String email) {
+		return repository.existsByEmail(email);
+	}
+
 
 }
