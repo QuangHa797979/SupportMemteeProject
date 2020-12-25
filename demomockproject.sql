@@ -17,7 +17,6 @@ CREATE TABLE Mentee	(
 DROP TABLE IF EXISTS Request;
 CREATE TABLE Request	(
 	request_id	  			SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  --   `type`					ENUM("retest","reserve", "support") NOT NULL,
   `type`					ENUM("retest","reserve", "support", "relearn") NOT NULL,
     note					TEXT,
     title					NVARCHAR(50) NOT NULL ,
@@ -36,10 +35,10 @@ CREATE TABLE Requestsupport	(
 	start_time				DATETIME DEFAULT NOW() NOT NULL,
     end_time				DATETIME NOT NULL,
 	supervisor_name			VARCHAR(50) NOT NULL,
-    note					VARCHAR(500),
     `status`				ENUM("send","pending","approve","refuse"),
      FOREIGN KEY(request_support_id) REFERENCES Request(request_id)
 );
+
     -- create table Subject
 CREATE TABLE `Subject`	(
 	subject_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -51,7 +50,7 @@ CREATE TABLE Lesson	(
 	lesson_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     lesson_name		VARCHAR(50) NOT NULL UNIQUE CHECK(length(lesson_name) >= 6 AND length(lesson_name) <=50),
     subject_id		SMALLINT UNSIGNED NOT NULL,
-	FOREIGN KEY(subject_id) REFERENCES Subject (subject_id)
+	FOREIGN KEY(subject_id) REFERENCES `Subject` (subject_id)
 );
 -- create table Request_relearn
 	CREATE TABLE Request_relearn	(
@@ -77,7 +76,11 @@ VALUES			('hanh.havan@vti',		'hanhhanoi1999@gmail.com',		'123456',	'123456888888
 				('ngthuy123',			'thuyhanoi@gmail.com', 			'123456',	'123456888888')		,
 				('quanganhvti',			'quanganh@gmail.com', 			'123456',	'123456888888')		;
                 
+
+    
+
 -- Add data Request       
+
 INSERT INTO Request	(  		`type`		,		note	, 	title, 	mentee_id)
 VALUES 						('retest'	,'abc'		,	'abcde'	,	1	),
 							('reserve'	,'abc'		,	'abcde'	,	2	),
@@ -85,6 +88,9 @@ VALUES 						('retest'	,'abc'		,	'abcde'	,	1	),
 							('reserve'	,'abc'		,	'abcde'	,	4	),
 							('reserve'	,'abc'		,	'abcde'	,	5	),
 							('support'	,'abc'		,	'abcde'	,	6	),
+							('reserve'	,'abc'		,	'abcde'	,	7	),
+							('support'	,'abc'		,	'abcde'	,	8	),
+							('reserve'	,'abc'		,	'abcde'	,	9	),
 						-- ('reserve'	,'abc'		,	'abcde'	,	7	),
                             ('relearn'	,'abc'		,	'abcde'	,	7	),
 							('support'	,'abc'		,	'abcde'	,	8	),
@@ -105,8 +111,22 @@ VALUES 						(		3			,	'SQL'			,		1				,'2019-03-05',   '2019-03-05','2019-03-05'
 -- 							(					,	'ACCOUNT'		,		9				,'2020-04-09',   '2020-04-09','2020-04-09','Cuong'	, 'approve'),
 -- 							(					,	'BANKING'		,		10				,'2020-04-10',   '2020-04-10','2020-04-10','Duc'		, 'send');
 
+
 -- Add data Subject
-INSERT INTO subject 	(subject_name)
+-- INSERT INTO subject 	(subject_name)
+-- value					("Java"),
+-- 						("MySQL"),
+--                         ("Angular");
+                        
+-- Add data Lesson
+-- INSERT INTO Lesson 	(lesson_name,		subject_id)
+-- value					("Java-core",			1),
+-- 						("Java-advance",		1),
+-- 						("MySQL căn bản",		2),
+--                         ("Angular-Byding data",	3);
+
+-- Add data Subject
+INSERT INTO `Subject` 	(subject_name)
 value					("Java"),
 						("MySQL"),
                         ("Angular");
@@ -118,26 +138,30 @@ value					("Java-core",			1),
 						("MySQL căn bản",		2),
                         ("Angular-Byding data",	3);
  -- Add data request_relearn
-INSERT INTO Request_relearn 	(request_id,	lesson_id,	start_date,				end_date,				status)
+INSERT INTO Request_relearn 	(request_id,	lesson_id,	start_date,				end_date,				`status`)
 value							(	7,				1,		"2020/10/15 19-00-00",	"2020/11/15 22-00-00",	"SEND"),
 								(	9,				2,		"2020/10/15 19-00-00",	"2020/11/15 22-00-00",	"PENDING");                             
+
 select * from  Mentee;                    
 select * from  Requestsupport; 
 select * from  Request; 
 
-    -- create table Subject
-CREATE TABLE `Subject`	(
-	subject_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    subject_name	VARCHAR(50) NOT NULL UNIQUE
-);
+
+
+
+--     -- create table Subject
+-- CREATE TABLE `Subject`	(
+-- 	subject_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     subject_name	VARCHAR(50) NOT NULL UNIQUE
+-- );
 
 -- create table Lesson
-CREATE TABLE Lesson	(
-	lesson_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    lesson_name		VARCHAR(50) NOT NULL UNIQUE,
-    subject_id		SMALLINT UNSIGNED,
-	FOREIGN KEY(subject_id) REFERENCES Subject (subject_id)
-);
+-- CREATE TABLE Lesson	(
+-- 	lesson_id		SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     lesson_name		VARCHAR(50) NOT NULL UNIQUE,
+--     subject_id		SMALLINT UNSIGNED,
+-- 	FOREIGN KEY(subject_id) REFERENCES Subject (subject_id)
+-- );
 
 -- create table Request_retest
 DROP TABLE IF EXISTS Request_retest;
@@ -152,18 +176,7 @@ CREATE TABLE Request_retest	(
     FOREIGN KEY(subject_id) REFERENCES `Subject` (subject_id)
 );
 
--- Add data Subject
-INSERT INTO `subject` 	(subject_name)
-value					("Java"),
-						("MySQL"),
-                        ("Angular");
-                        
--- Add data Lesson
-INSERT INTO Lesson 	(lesson_name,		subject_id)
-value					("Java-core",			1),
-						("Java-advance",		1),
-						("MySQL căn bản",		2),
-                        ("Angular-Byding data",	3);
+
                             
 -- Add data Request_retest
 INSERT INTO Request_retest		(request_id,	subject_id,				`time`,			`point`	,		`status`)		
@@ -181,6 +194,7 @@ values							('1',			'2',					'2020-12-12',	'0',			'REFUSE'),
 --                                 ('18',			'3',			'MULTIPLE_CHOICE',			'2020-12-15',	'0',			`SEND`	),
 --                                 ('19',			'2',			'INTERVIEW',				'2020-12-16',	'0',			`SEND`	),
 
-SELECT * FROM `subject`;
-SELECT * FROM `Lesson`;
-SELECT * FROM `Request_retest`;
+-- SELECT * FROM `subject`;
+-- SELECT * FROM `Lesson`;
+-- SELECT * FROM `Request_retest`;
+

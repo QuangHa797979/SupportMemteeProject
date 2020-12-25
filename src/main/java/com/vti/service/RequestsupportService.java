@@ -54,7 +54,8 @@ public class RequestsupportService implements IRequestsupportService {
 				Status.fromSignal(form.getStatus()),
 				form.getNote(),
 				form.getTitle(),
-				Type.fromKind(form.getType()),
+//				Type.fromKind(form.getType()),
+				Type.SUPPORT,
 				mentee);
 				
 		repository.save(entity);
