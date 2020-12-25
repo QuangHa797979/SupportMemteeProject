@@ -35,11 +35,7 @@ public class RequestsupportController {
 
 	@Autowired
 	private IRequestsupportService requestsupportService;
-//	private RequestService requestService;
-//	private Mentee mentee;
-//	private Object menteeService;
-//	private RequestDTO request;
-//	private Requestsupport requestsupport;
+
 
 	@GetMapping()
 	public ResponseEntity<?> getAllRequestsupports() {

@@ -23,6 +23,7 @@ import com.vti.dto.CreatingMenteeForm;
 import com.vti.dto.MenteeDTO;
 import com.vti.dto.UpdatingMenteeForm;
 import com.vti.entity.Mentee;
+import com.vti.entity.Request;
 import com.vti.service.IMenteeService;
 
 @Validated
@@ -52,12 +53,20 @@ public class MenteeController {
 //			}
 //			thêm vòng for gọi list requestTitles vào mentee
 
+
 //			List<Integer> requestTitles2 = new ArrayList<>();
 
 //			requestTitles.add(request.getMentee().getMenteeID());
 //		}
 //				requestTitles.add(request.getRequestID(), request.getTitle());
 //			}
+
+//			for (Request request : mentee.getRequests()) {
+//				requestTitles.add(request.getTitle());
+//				requestTitles.add(request.getNote());
+//				requestTitles.add(request.getType().getKind());
+//			}
+
 
 			// convert 1 entity => 1 dto
 
