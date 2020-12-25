@@ -27,8 +27,8 @@ public class LoginController {
 //	}
 	
 	@GetMapping()
-	public ResponseEntity<?> getMenteeAndLogin(@RequestParam(value = "MenteeName")String MenteeName,@RequestParam(value = "passWord")String passWord){
-		Mentee Mentee = service.getMenteeAndLogin(MenteeName, passWord);
+	public ResponseEntity<?> getMenteeAndLogin(@RequestParam(value = "userName")String userName,@RequestParam(value = "password")String password){
+		Mentee Mentee = service.getMenteeAndLogin(userName, password);
 		return new ResponseEntity<Mentee>(Mentee,HttpStatus.OK);
 	}
 }

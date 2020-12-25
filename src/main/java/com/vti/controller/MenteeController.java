@@ -3,9 +3,12 @@ package com.vti.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +23,9 @@ import com.vti.dto.CreatingMenteeForm;
 import com.vti.dto.MenteeDTO;
 import com.vti.dto.UpdatingMenteeForm;
 import com.vti.entity.Mentee;
-import com.vti.entity.Request;
-import com.vti.entity.Request.Type;
 import com.vti.service.IMenteeService;
 
+@Validated
 @RestController
 @RequestMapping(value = "api/v1/mentees")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -41,23 +43,27 @@ public class MenteeController {
 		for (Mentee mentee : mentees) {
 
 			MenteeDTO dto;
-			List<String> requestTitles = new ArrayList<>();
+//			List<String> requestTitles = new ArrayList<>();
+//
+//			for (Request request : mentee.getRequests()) {
+//				requestTitles.add(request.getTitle());
+//				requestTitles.add(request.getNote());
+//				requestTitles.add(request.getType().getKind());
+//			}
+//			thêm vòng for gọi list requestTitles vào mentee
 
-			for (Request request : mentee.getRequests()) {
-				requestTitles.add(request.getTitle());
-				requestTitles.add(request.getNote());
-				requestTitles.add(request.getType().getKind());
-			}
 //			List<Integer> requestTitles2 = new ArrayList<>();
-//				
-//				
+
 //			requestTitles.add(request.getMentee().getMenteeID());
 //		}
 //				requestTitles.add(request.getRequestID(), request.getTitle());
 //			}
 
 			// convert 1 entity => 1 dto
-			dto = new MenteeDTO(mentee.getUserName(), mentee.getPhoneNumber(), mentee.getEmail(), requestTitles);
+
+//			dto = new MenteeDTO(mentee.getUserName(), mentee.getPhoneNumber(), mentee.getEmail(), requestTitles);
+
+			dto = new MenteeDTO(mentee.getUserName(), mentee.getPhoneNumber(), mentee.getEmail());
 
 			dtos.add(dto);
 		}
@@ -70,12 +76,38 @@ public class MenteeController {
 		return new ResponseEntity<Mentee>(menteeService.getMenteeByID(id), HttpStatus.OK);
 	}
 
+//	@PostMapping()
+//	public ResponseEntity<?> createMentee(@RequestBody CreatingMenteeForm form) {
+//		Mentee entity = form.toEntity();
+//		menteeService.createMentee(entity);
+//		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
+//	}
+
 	@PostMapping()
-	public ResponseEntity<?> createMentee(@RequestBody CreatingMenteeForm form) {
+	public ResponseEntity<?> createMentee(@Valid @RequestBody CreatingMenteeForm form) {
 		Mentee entity = form.toEntity();
 		menteeService.createMentee(entity);
 		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
 	}
+
+//	@PostMapping()
+//	public ResponseEntity<Boolean> createMentee(@RequestBody CreatingMenteeForm form) {
+//		Mentee entity = form.toEntity();
+//		menteeService.createMentee(entity);
+//		Scanner scanner = new Scanner(System.in);
+//		System.out.println("UserName: ");
+//		String username = ScannerUtilMentee.readEmail(scanner, "error");
+//		System.out.println("Password: ");
+//		String password = ScannerUtilMentee.readPassword(scanner, "error");
+//		boolean bl = new MenteeService().login(username, password);
+//		if(bl){
+//			Mentee entity = form.toEntity();
+//			menteeService.createMentee(entity);
+//			return new ResponseEntity<Boolean>(HttpStatus.CREATED);
+//		} else {
+//			return new ResponseEntity<Boolean>(HttpStatus.FORBIDDEN);
+//		}
+//	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> updateMentee(@PathVariable(name = "id") short id, @RequestBody UpdatingMenteeForm form) {

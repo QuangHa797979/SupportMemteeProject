@@ -35,16 +35,25 @@ public class RequestsupportController {
 
 	@Autowired
 	private IRequestsupportService requestsupportService;
-	private RequestService requestService;
-	private Mentee mentee;
-	private Object menteeService;
-	private RequestDTO request;
-	private Requestsupport requestsupport;
+//	private RequestService requestService;
+//	private Mentee mentee;
+//	private Object menteeService;
+//	private RequestDTO request;
+//	private Requestsupport requestsupport;
 
 	@GetMapping()
 	public ResponseEntity<?> getAllRequestsupports() {
 		List<Requestsupport> Requestsupports = requestsupportService.getAllRequestsupports();
-		return new ResponseEntity<List<Requestsupport>>(Requestsupports, HttpStatus.OK);
+		List<RequestsupportDTO> dtos = new ArrayList<>();
+		for (Requestsupport requestsupport : Requestsupports) {
+
+			RequestsupportDTO dto;
+			
+			dto = new RequestsupportDTO(requestsupport.getSubjectName(), requestsupport.getLessonName(), requestsupport.getCreateDate(),requestsupport.getStartime(), requestsupport.getEndtime(), requestsupport.getSupervisorName(), requestsupport.getStatus().getSignal());
+
+			dtos.add(dto);
+		}
+		return new ResponseEntity<List<RequestsupportDTO>>(dtos, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}")
@@ -53,7 +62,7 @@ public class RequestsupportController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<?> creategRequestsupport(@RequestBody CreatingRequestsupportForm form) {
+	public ResponseEntity<?> createRequestsupport(@RequestBody CreatingRequestsupportForm form) {
 		requestsupportService.createRequestsupport(form);
 		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
 	}
